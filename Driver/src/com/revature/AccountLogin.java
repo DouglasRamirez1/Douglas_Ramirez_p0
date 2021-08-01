@@ -12,8 +12,8 @@ public class AccountLogin {
     int count = 0;
     AccountLogin(){
         System.out.println("WORK IN PROGRESS");
-        System.out.println(Array2.length);
-        System.out.println(Array2[0].length);
+        //System.out.println(Array2.length); used to test the number of rows in the fixed array.
+        //System.out.println(Array2[0].length); used to test the number of columns in the fixed array.
 
         do{
             System.out.println("Username: ");
@@ -37,7 +37,8 @@ public class AccountLogin {
                 System.out.println("Incorrect username and password combination. Please try again.");
             }
             else{
-                System.out.println("Login successful! Welcome " + username +".\nPlease select the desired service or select (0) to quit your session.");
+                System.out.println("\nLogin successful! Welcome " + username +".\n\nPlease select the desired service:");
+                System.out.println("Deposit Funds (1)\nWithdraw Funds (2)\nView Account Status (3)\nCreate new account (4)\nExit Session (0)");
             }
         }while(!done);
     }
