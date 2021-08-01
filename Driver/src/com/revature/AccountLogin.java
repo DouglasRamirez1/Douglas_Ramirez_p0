@@ -37,7 +37,7 @@ public class AccountLogin {
                 System.out.println("Incorrect username and password combination. Please try again.");
             }
             else{
-                System.out.println("Login successful!");
+                System.out.println("Login successful! Welcome " + username +".\nPlease select the desired service or select (0) to quit your session.");
             }
         }while(!done);
     }
