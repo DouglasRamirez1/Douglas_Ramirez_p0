@@ -13,11 +13,11 @@ public class MainMenuSelect {
             switch (mMs){
                 case "1":
                     NewAccountCreation nu = new NewAccountCreation();
-                    done = true;
+                    //done = true;
                     break;
                 case "2":
                     AccountLogin l = new AccountLogin();
-                    done = true;
+                    //done = true;
                     break;
                 case "0":
                     System.exit(0);
