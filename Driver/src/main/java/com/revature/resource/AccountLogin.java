@@ -10,6 +10,10 @@ public class AccountLogin {
     String username, password;
     boolean done = false;
 
+    /**
+     * Takes the user's inputs to begin looking for a match
+     * @param: Username and Password
+     */
     public AccountLogin(){
         System.out.println("---------------------------------------------");
         System.out.println("--USER LOGIN--");
@@ -25,7 +29,6 @@ public class AccountLogin {
             if(dbAccountLogin.getDone()){
                 done = true;
             }
-            }while(!done);
-        }
+        }while(!done);
     }
-
+}

@@ -1,20 +1,25 @@
 package com.revature.service;
 
-import com.revature.persistence.DatabaseConnection;
+import com.revature.persistence.databaseConnectionFactory;
 
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class EditAccount extends DatabaseConnection {
+public class EditAccount extends databaseConnectionFactory {
 
     String user;
     Scanner scanner = new Scanner(System.in);
     String editSelection;
     boolean done;
 
+    /**
+     * Allows a user to edit their personal information from the parent table.
+     * @param user
+     */
     public EditAccount(String user){
         this.user = user;
         do {
+            user = this.user;
             System.out.println("What would you like to edit?");
             System.out.println("1) Name");
             System.out.println("2) Username");
@@ -27,7 +32,7 @@ public class EditAccount extends DatabaseConnection {
                 case "2":
                 case "3":
                 case "4":
-                    EditInfo(editSelection, this.user);
+                    EditInfo(editSelection, user);
                     System.out.println("---------------------------------------------");
                     break;
                 case "0":
@@ -42,10 +47,18 @@ public class EditAccount extends DatabaseConnection {
         } while(!done);
     }
 
+    /**
+     * Message for invalid input
+     */
     public void InvalidMessage(){
         System.out.println("Invalid Selection. Please choose from the following.");
     }
 
+    /**
+     * Takes in the new user information
+     * @param editSelection
+     * @param user
+     */
     public void EditInfo(String editSelection, String user){
         this.user = user;
         String column;
@@ -73,6 +86,11 @@ public class EditAccount extends DatabaseConnection {
         }
     }
 
+    /**
+     * SQL Command to UPDATE entries in the parent table.
+     * @param column
+     * @param user
+     */
     public void EditInfoSQLCommand(String column, String user){
         String newEntry = scanner.nextLine();
         System.out.println("Current column is " + column);
@@ -92,6 +110,10 @@ public class EditAccount extends DatabaseConnection {
         }
     }
 
+    /**
+     * Allows a user to specify changing their first or last name
+     * @return
+     */
     public String getName(){
         String column;
         boolean nameSelectBoolean = false;

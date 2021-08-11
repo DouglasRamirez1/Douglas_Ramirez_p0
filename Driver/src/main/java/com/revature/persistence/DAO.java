@@ -1,13 +1,13 @@
 package com.revature.persistence;
+import com.revature.collection.RevArrayList;
+import com.revature.model.UserInfo;
 
-public interface DAO <T>{
-    //Optional<T> get(long id);
+/**DAO interface with abstract implementations.
+ *
+ */
+public interface DAO {
 
-    //List<T> getAll();
+    RevArrayList<UserInfo> getLoginInfo();
 
-    void save(T t);
-
-    void update(T t, String[] params);
-
-    void delete(T t);
+    void save(String username, String firstName, String lastName, String password, String email);
 }

@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-    public class dbAccountLogin extends DatabaseConnection{
+public class dbAccountLogin extends databaseConnectionFactory{
 
     protected RevArrayList<String> userInfo = new RevArrayList<String>();
     boolean done = false;
 
+    /**
+     * Takes the user login information and looks for a match in the database
+     * @param userInfo
+     */
     public dbAccountLogin(RevArrayList<String> userInfo) {
         RevaHashSet<String> dbUsernames = new RevaHashSet<>();
         RevaHashSet<String> dbPasswords = new RevaHashSet<String>();
@@ -21,7 +25,6 @@ import java.sql.Statement;
 
         try{
             String sql = "SELECT username, password FROM account_logins";
-            String sql2 = "SELECT password FROM account_logins";
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -48,7 +51,11 @@ import java.sql.Statement;
 
     }
 
+    /**
+     * Returns a boolean for logging in.
+     * @return boolean of whether the login completed successfully or not.
+     */
     public boolean getDone() {
         return done;
     }
-    }
+}

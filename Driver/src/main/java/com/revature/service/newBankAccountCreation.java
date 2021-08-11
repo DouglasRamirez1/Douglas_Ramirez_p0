@@ -5,6 +5,11 @@ public class newBankAccountCreation {
     String user_id;
     Scanner scanner = new Scanner(System.in);
     boolean done = false;
+
+    /**
+     * User specifies which bank column to deposit to upon creating a new bank account.
+     * @param user_id
+     */
     public newBankAccountCreation(String user_id){
         this.user_id = user_id;
         do{
@@ -18,6 +23,7 @@ public class newBankAccountCreation {
             String n = scanner.nextLine();
             if(n.equals("0")){
                 done = true;
+                System.out.println("-----------------------------------------------------");
                 System.out.println("Account creation cancelled. Returning to main menu...");
                 System.out.println("-----------------------------------------------------");
                 continue;
@@ -26,13 +32,12 @@ public class newBankAccountCreation {
                 Deposit deposit = new Deposit(user_id, n);
                 if(deposit.getDone()){
                     done = true;
+                    continue;
                 }
             }
             else {
                 System.out.println("Invalid Option. Please try again.");
             }
-
-
         }while(!done);
     }
 }

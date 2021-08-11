@@ -1,12 +1,12 @@
 package com.revature.service;
 
-import com.revature.persistence.DatabaseConnection;
+import com.revature.persistence.databaseConnectionFactory;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class Withdrawal extends DatabaseConnection {
+public class Withdrawal extends databaseConnectionFactory {
 
     String account_name;
     String user_id;
@@ -15,6 +15,12 @@ public class Withdrawal extends DatabaseConnection {
     boolean done;
     int accountType;
 
+    /**
+     * User specifies withdrawal ammount for checkings or savings accounts.
+     * @param account_name
+     * @param user_id
+     * @param accountType
+     */
     public Withdrawal(String account_name, String user_id, int accountType) {
         this.account_name = account_name;
         this.accountType = accountType;
@@ -25,18 +31,16 @@ public class Withdrawal extends DatabaseConnection {
             case 1:
                 System.out.print("How much would you like to withdraw?\n->$");
                 withdraw1 = scanner.nextDouble();
-                withdraw2 = 0.00;
-                if(withdrawSpecificAccountSQLCommand(account_name, withdraw1, withdraw2, done)){
+                if(withdrawSpecificAccountSQLCommand(account_name, withdraw1, done)){
                     System.out.printf("$%.2f have been withdrawn from account %s.", withdraw1, account_name);
                     System.out.println("");
                 }
                 break;
             case 2:
                 System.out.print("How much would you like to withdraw?\n->$");
-                withdraw2 = scanner.nextDouble();
-                withdraw1 = 0.00;
-                if(withdrawSpecificAccountSQLCommand(account_name, withdraw1, withdraw2, done)){
-                    System.out.printf("$%.2f have been withdrawn from account %s.", withdraw2, account_name);
+                withdraw1 = scanner.nextDouble();
+                if(withdrawSpecificAccountSQLCommand(account_name, withdraw1, done)){
+                    System.out.printf("$%.2f have been withdrawn from account [%s].", withdraw1, account_name);
                     System.out.println("");
                 }
                 break;
@@ -51,7 +55,15 @@ public class Withdrawal extends DatabaseConnection {
 
 
     }
-    public boolean withdrawSpecificAccountSQLCommand(String account_name, double withdraw1, double withdraw2, boolean done){
+
+    /**
+     * SQL command to UPDATE checkings or savings entries.
+     * @param account_name
+     * @param withdraw1
+     * @param done
+     * @return
+     */
+    public boolean withdrawSpecificAccountSQLCommand(String account_name, double withdraw1, boolean done){
         try {
             String accountColumn = "";
             double existingBalance, newBalance = 0;
@@ -61,37 +73,22 @@ public class Withdrawal extends DatabaseConnection {
             if(this.accountType == 2){
                 accountColumn = "savings";
             }
-            String getBalance = "select " + accountColumn + " from " + this.user_id + " where account_name = '" + account_name + "';";
+            String getBalance = "select " + accountColumn + " from account_holdings where account_name = '" + account_name + "';";
             Statement id = connection.createStatement();
             id.executeQuery(getBalance);
             ResultSet rs = id.executeQuery(getBalance);
             rs.next();
             existingBalance = rs.getDouble(accountColumn);
-            if(this.accountType == 1){
-                if(existingBalance >= withdraw1){
-                    newBalance = existingBalance - withdraw1;
-                    done = true;
-                    String depositMoneySQLCommand = "UPDATE " + this.user_id + " set " + accountColumn + " = " + newBalance + " where account_name = '" + account_name + "';" ;
-                    Statement deposit = connection.createStatement();
-                    deposit.executeUpdate(depositMoneySQLCommand);
-                }
-                else{
-                    System.out.println("You may not withdraw more than the amount in your account. Please try again.");
-                    done = false;
-                }
+            if(existingBalance >= withdraw1 && withdraw1 >= 0){
+                newBalance = existingBalance - withdraw1;
+                done = true;
+                String depositMoneySQLCommand = "UPDATE account_holdings set " + accountColumn + " = " + newBalance + " where account_name = '" + account_name + "';" ;
+                Statement deposit = connection.createStatement();
+                deposit.executeUpdate(depositMoneySQLCommand);
             }
-            if(this.accountType == 2){
-                if(existingBalance >= withdraw2){
-                    newBalance = existingBalance - withdraw2;
-                    done = true;
-                    String depositMoneySQLCommand = "UPDATE " + this.user_id + " set " + accountColumn + " = " + newBalance + " where account_name = '" + account_name + "';" ;
-                    Statement deposit = connection.createStatement();
-                    deposit.executeUpdate(depositMoneySQLCommand);
-                }
-                else{
-                    System.out.println("You may not withdraw more than the amount in your account. Please try again.");
-                    done = false;
-                }
+            else{
+                System.out.println("You may not withdraw more than the amount in your account. Please try again.");
+                done = false;
             }
 
         } catch (Exception e) {
