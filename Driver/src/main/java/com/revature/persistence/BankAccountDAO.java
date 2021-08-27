@@ -30,7 +30,7 @@ public class BankAccountDAO extends databaseConnectionFactory implements DAO {
                 dbUsers.add(info);
             }
         } catch (SQLException e) {
-            //
+            e.printStackTrace();
         }
 
         return dbUsers;

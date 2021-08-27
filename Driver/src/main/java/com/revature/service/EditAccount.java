@@ -1,7 +1,5 @@
 package com.revature.service;
-
 import com.revature.persistence.databaseConnectionFactory;
-
 import java.sql.Statement;
 import java.util.Scanner;
 

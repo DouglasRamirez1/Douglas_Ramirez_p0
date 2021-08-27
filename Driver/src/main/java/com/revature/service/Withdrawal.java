@@ -1,7 +1,5 @@
 package com.revature.service;
-
 import com.revature.persistence.databaseConnectionFactory;
-
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -31,6 +29,10 @@ public class Withdrawal extends databaseConnectionFactory {
             case 1:
                 System.out.print("How much would you like to withdraw?\n->$");
                 withdraw1 = scanner.nextDouble();
+                if(withdraw1 < 0){
+                    System.out.println("Amount may NOT be negative. Starting over...");
+                    break;
+                }
                 if(withdrawSpecificAccountSQLCommand(account_name, withdraw1, done)){
                     System.out.printf("$%.2f have been withdrawn from account %s.", withdraw1, account_name);
                     System.out.println("");
@@ -39,6 +41,10 @@ public class Withdrawal extends databaseConnectionFactory {
             case 2:
                 System.out.print("How much would you like to withdraw?\n->$");
                 withdraw1 = scanner.nextDouble();
+                if(withdraw1 < 0){
+                    System.out.println("Amount may NOT be negative. Starting over...");
+                    break;
+                }
                 if(withdrawSpecificAccountSQLCommand(account_name, withdraw1, done)){
                     System.out.printf("$%.2f have been withdrawn from account [%s].", withdraw1, account_name);
                     System.out.println("");

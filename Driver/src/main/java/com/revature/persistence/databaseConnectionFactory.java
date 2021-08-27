@@ -9,9 +9,9 @@ import java.sql.SQLException;
  */
 public class databaseConnectionFactory {
     //"jdbc:postgresql://[ENDPOINT]/[DATABASE]
-    private static final String URL = "jdbc:postgresql://database-1.cpzpfw42jf4u.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=douglas_ramirez_p0";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "RevaturePass1234*";
+    private static final String URL = "URL";
+    private static final String USERNAME = "USERNAME";
+    private static final String PASSWORD = "PASSWORD";
 
     public static Connection connection;
 

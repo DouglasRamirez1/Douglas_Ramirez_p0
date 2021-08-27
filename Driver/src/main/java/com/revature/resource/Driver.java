@@ -1,6 +1,4 @@
 package com.revature.resource;
-import com.revature.resource.AccountLogin;
-import com.revature.resource.NewAccountCreation;
 
 import java.util.Scanner;
 
